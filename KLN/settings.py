@@ -29,7 +29,7 @@ SECRET_KEY = 'django-insecure-@nv+kygem663mjpy)llctydk%=88azvykdf30(zv7*w3g#bl0p
 DEBUG = ENVIRONMENT != 'production'
 
 ALLOWED_HOSTS = ['*']
-CSRF_TRUSTED_ORIGINS = ['*']
+CSRF_TRUSTED_ORIGINS = ['http://localhost:8000', 'https://kln.azurewebsites.net']
 
 
 # Application definition
