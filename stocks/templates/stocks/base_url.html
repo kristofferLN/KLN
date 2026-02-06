@@ -8,7 +8,11 @@
 <body>
     <h1>FORSIDE</h1>
     {% for aktie in aktier %}
-        <p>{{ aktie.selskab }} - {{ aktie.ticker }}</p>
+    <div>    
+    <p>{{ aktie.selskab }} - {{ aktie.ticker }}</p>
+        
+          <img src="data:image/png;base64,{{ chart|safe }}" style="width: 100%;" />
+        </div>
     {% endfor %}
 </body>
 </html>
