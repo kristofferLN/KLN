@@ -1,0 +1,8 @@
+Rangering af aktier:
+hvis aktiv valgt, så:
+    aktie
+ellers:
+    Samlet score:
+    - interesse for aktie 
+    - aktieudsving
+    - aktuel nyheder

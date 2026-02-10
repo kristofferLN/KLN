@@ -7,6 +7,7 @@ import matplotlib.dates as mdates
 import base64
 from io import BytesIO
 import yfinance as yf
+from .models import aktier, aktiepriser
 
 
 def get_graph():
@@ -31,13 +32,39 @@ def get_plot(x,y):
     graph = get_graph()
     return graph
 
+def get_stocks_data():
+    aktie_data_til_grafer = {}
+    tickers = aktier.objects.values("ticker", "selskab")
+    for tick in tickers:
+        try:    
+            aktie = yf.Ticker(tick["ticker"])
+            hist = aktie.history(period="1y")
+            if hist.empty:
+                continue
+            hist = hist[['Close']]  # Kun 'Close' priser
+            hist.index = pd.to_datetime(hist.index)
+            aktie_data_til_grafer[tick["selskab"]] = hist
+        except Exception:
+            continue
+    #print(aktie_data_til_grafer)
+    return aktie_data_til_grafer
 
-def get_novo_nordisk_data():
-    data = {}
-    novo = yf.Ticker("NOVO-B.CO")
-    hist = novo.history(period="1y")  # Hent historiske data for den sidste måned
-    hist = hist[['Close']]  # Kun 'Close' priser
-    hist.index = pd.to_datetime(hist.index)
-    return hist
+##engangsbrug
+def aktiepris_close_til_db():
+    tickers = aktier.objects.values("ticker")
+    for tick in tickers:
+        try:    
+            aktie = yf.Ticker(tick["ticker"])
+            hist = aktie.history(period="1y")
+            if hist.empty:
+                continue
+            hist = hist[['Close']]  # Kun 'Close' priser
+            hist.index = pd.to_datetime(hist.index)
+            for dato, row in hist.iterrows():
+                pris_close = row['Close']
+                aktiepris_entry = aktiepriser(selskab=aktier.objects.get(ticker=tick["ticker"]), dato=dato, pris_close=pris_close)
+                aktiepris_entry.save()
+        except Exception:
+            continue
 
-
+#ÆLSMDGS

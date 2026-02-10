@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+{% load dict_extras %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -6,13 +7,15 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>FORSIDE</h1>
+    <h1>FORSIDEN</h1>
+<div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 15px;">
     {% for aktie in aktier %}
-    <div>    
-    <p>{{ aktie.selskab }} - {{ aktie.ticker }}</p>
-        
-          <img src="data:image/png;base64,{{ chart|safe }}" style="width: 100%;" />
-        </div>
+    <div style="border: 1px solid #ccc; border-radius: 8px; padding: 10px; text-align: center;">
+        <img src="data:image/png;base64,{{ charts|dict_key:aktie.selskab|safe }}" style="width: 100px; height: auto; margin-bottom: 5px;" />
+        <p style="margin: 0; font-weight: bold;">{{ aktie.selskab }}</p>
+        <p style="margin: 0; color: gray;">{{ aktie.ticker }}</p>
+    </div>
     {% endfor %}
+</div>
 </body>
 </html>
