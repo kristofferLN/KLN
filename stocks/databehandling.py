@@ -63,7 +63,7 @@ def aktiepris_close_til_db():
 def opsummer_nyheder():
     links = nyheder_links.objects.filter(selskab__selskab="Novo Nordisk B A/S").values_list("link", flat=True)
     links_liste = list(links)
-    client = OpenAI(api_key="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")
+    client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
     response = client.chat.completions.create(
         model="gpt-5.2-chat-latest",
         messages=[{
