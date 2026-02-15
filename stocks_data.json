@@ -54736,7 +54736,7 @@
   "fields": {
     "selskab": 18,
     "dato": "2026-02-13",
-    "kursm├Ñl_pris": 320.0,
+    "kursmaal_pris": 320.0,
     "anbefaling": "Hold",
     "analytiker": "Imaginary Bank",
     "kommentar": ""
@@ -54748,7 +54748,7 @@
   "fields": {
     "selskab": 18,
     "dato": "2026-02-13",
-    "kursm├Ñl_pris": 330.0,
+    "kursmaal_pris": 330.0,
     "anbefaling": "K├©b",
     "analytiker": "Bank of banks",
     "kommentar": ""
@@ -54760,7 +54760,7 @@
   "fields": {
     "selskab": 18,
     "dato": "2026-02-12",
-    "kursm├Ñl_pris": 290.0,
+    "kursmaal_pris": 290.0,
     "anbefaling": "Hold",
     "analytiker": "Bank of banks",
     "kommentar": ""

@@ -25,7 +25,7 @@ def byg_seneste_kursmål(aktie):
     obj_liste = list(qs)
     items = []
     for obj in obj_liste:
-        tekst = f"Nyt kursmål fra {obj.analytiker}: {obj.kursmål_pris} DKK - {obj.anbefaling}"
+        tekst = f"Nyt kursmål fra {obj.analytiker}: {obj.kursmaal_pris} DKK - {obj.anbefaling}"
         items.append(tekst)
     return items
 

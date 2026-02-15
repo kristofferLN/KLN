@@ -64,10 +64,10 @@ class debat(models.Model):
 class kursmaal(models.Model):
     selskab = models.ForeignKey(aktier, on_delete=models.CASCADE)
     dato = models.DateField()
-    kursmål_pris = models.FloatField()
+    kursmaal_pris = models.FloatField()
     anbefaling = models.CharField(max_length=20)  # f.eks. 'Køb', 'Sælg', 'Hold'
     analytiker = models.CharField(max_length=100)
     kommentar = models.TextField(blank=True)
 
     def __str__(self):
-        return f"{self.selskab} - {self.dato} - {self.kursmål_pris} by {self.analytiker}"
+        return f"{self.selskab} - {self.dato} - {self.kursmaal_pris} by {self.analytiker}"
