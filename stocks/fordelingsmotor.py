@@ -8,7 +8,7 @@
 ## Tjek om nyt kursmål offentliggjort efter [lukketidspunkt seneste handelsdag] i går, og hvis ja, vis, hvis flere, opsummer
 ## seneste nyhed
 
-from .models import aktier, aktiepriser, nyheder_links, annotation, debat, kursmål, ai_news_summary
+from .models import aktier, aktiepriser, nyheder_links, annotation, debat, kursmaal, ai_news_summary
 from datetime import date
 
 def hent_ai_nyhedsopsummering(aktie):
@@ -21,7 +21,7 @@ def hent_ai_nyhedsopsummering(aktie):
     return items
 
 def byg_seneste_kursmål(aktie):
-    qs = kursmål.objects.filter(selskab=aktie, dato=date.today())
+    qs = kursmaal.objects.filter(selskab=aktie, dato=date.today())
     obj_liste = list(qs)
     items = []
     for obj in obj_liste:

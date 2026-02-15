@@ -61,7 +61,7 @@ class debat(models.Model):
 #     reaktion_type = models.CharField(max_length=20)  # f.eks. 'like', 'dislike', 'heart'
 #     created_at = models.DateTimeField(auto_now_add=True)
     
-class kursmål(models.Model):
+class kursmaal(models.Model):
     selskab = models.ForeignKey(aktier, on_delete=models.CASCADE)
     dato = models.DateField()
     kursmål_pris = models.FloatField()

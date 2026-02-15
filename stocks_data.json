@@ -54731,7 +54731,7 @@
   }
 },
 {
-  "model": "stocks.kursm├Ñl",
+  "model": "stocks.kursmaal",
   "pk": 1,
   "fields": {
     "selskab": 18,
@@ -54743,7 +54743,7 @@
   }
 },
 {
-  "model": "stocks.kursm├Ñl",
+  "model": "stocks.kursmaal",
   "pk": 2,
   "fields": {
     "selskab": 18,
@@ -54755,7 +54755,7 @@
   }
 },
 {
-  "model": "stocks.kursm├Ñl",
+  "model": "stocks.kursmaal",
   "pk": 3,
   "fields": {
     "selskab": 18,

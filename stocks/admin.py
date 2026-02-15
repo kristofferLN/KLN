@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import aktier, aktiepriser, nyheder_links, ai_news_summary, annotation, debat, kursmål
+from .models import aktier, aktiepriser, nyheder_links, ai_news_summary, annotation, debat, kursmaal
 # Register your models here.
 
 admin.site.register(aktier)
@@ -34,7 +34,7 @@ list_display = ('bruger', 'tekst', 'created_at')
 list_filter = ('bruger', 'created_at')
 search_fields = ('bruger', 'tekst')
 
-admin.site.register(kursmål)
+admin.site.register(kursmaal)
 list_display = ('selskab', 'dato', 'kursmål_pris', 'anbefaling', 'analytiker')
 list_filter = ('selskab', 'dato', 'anbefaling', 'analytiker')
 search_fields = ('selskab', 'dato', 'kursmål_pris', 'anbefaling', 'analytiker')
