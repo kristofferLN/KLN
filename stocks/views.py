@@ -68,6 +68,13 @@ def base_url(request):
 
         
         fokus = byg_fokus(18)
+    
+    print("BASE_DIR:", settings.BASE_DIR)
+    print("MEDIA_ROOT:", settings.MEDIA_ROOT)
+    print("exists media_root?", os.path.exists(settings.MEDIA_ROOT))
+    print("exists charts dir?", os.path.exists(os.path.join(settings.MEDIA_ROOT, "charts")))
+    print("sample file exists?", os.path.exists(os.path.join(settings.MEDIA_ROOT, "charts", "ambu-as_1m.png")))
+
 
     return render(request, 'stocks/base_url.html', {'aktier': aktier_list, 'charts': charts, 'fokus_data': fokus})
 
