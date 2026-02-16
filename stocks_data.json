@@ -19,7 +19,7 @@
   "model": "stocks.aktier",
   "pk": 3,
   "fields": {
-    "selskab": "A.P. M├©ller M├ªrsk A",
+    "selskab": "A.P. Møller Mærsk A",
     "ticker": "MAERSK-A.CO"
   }
 },
@@ -27,7 +27,7 @@
   "model": "stocks.aktier",
   "pk": 4,
   "fields": {
-    "selskab": "A.P. M├©ller M├ªrsk B",
+    "selskab": "A.P. Møller Mærsk B",
     "ticker": "MAERSK-B.CO"
   }
 },
@@ -211,7 +211,7 @@
   "model": "stocks.aktier",
   "pk": 27,
   "fields": {
-    "selskab": "├ÿrsted A/S",
+    "selskab": "Ørsted A/S",
     "ticker": "ORSTED.CO"
   }
 },
@@ -54437,8 +54437,8 @@
   "fields": {
     "selskab": 18,
     "link": "https://borsen.dk/nyheder/virksomheder/novo-nordisk-gar-til-kamp-mod-kopirival-her-er-fem-nedslag-i-sogsmalet?b_source=novo&b_medium=row_1&b_campaign=list_5",
-    "site": "B├©rsen",
-    "titel": "Novo Nordisk g├Ñr til kamp mod kopirival: Her er fem nedslag i s├©gsm├Ñlet",
+    "site": "Børsen",
+    "titel": "Novo Nordisk går til kamp mod kopirival: Her er fem nedslag i søgsmålet",
     "tekst": ".",
     "created_at": "2026-02-13T13:20:30.246Z"
   }
@@ -54449,8 +54449,8 @@
   "fields": {
     "selskab": 18,
     "link": "https://borsen.dk/nyheder/virksomheder/britisk-medicinalkaempe-pa-vej-mod-markedet-for-vaegttabspiller?b_source=novo&b_medium=row_1&b_campaign=list_1",
-    "site": "B├©rsen",
-    "titel": "Britisk medici┬¡nal┬¡k├ªmpe p├Ñ vej mod markedet for v├ªgttab┬¡spiller",
+    "site": "Børsen",
+    "titel": "Britisk medici­nal­kæmpe på vej mod markedet for vægttab­spiller",
     "tekst": ".",
     "created_at": "2026-02-13T13:20:30.246Z"
   }
@@ -54462,7 +54462,7 @@
     "selskab": 18,
     "link": "https://borsen.dk/nyheder/virksomheder/tidligere-fda-chef-hims-hers-er-gaet-for-langt?b_source=novo&b_medium=row_1&b_campaign=list_6",
     "site": "Borsen",
-    "titel": "Tidligere FDA-chef: Hims & Hers er g├Ñet for langt",
+    "titel": "Tidligere FDA-chef: Hims & Hers er gået for langt",
     "tekst": ".",
     "created_at": "2026-02-13T13:20:30.246Z"
   }
@@ -54472,7 +54472,7 @@
   "pk": 1,
   "fields": {
     "selskab": 18,
-    "summary_text": "Novo starter s├©gsm├Ñl, konkurrence intensiveres fra Kina og Hims & Hers kan have beg├Ñet lovbrud. Kursen presses af negative analytikerestimater.",
+    "summary_text": "Novo starter søgsmål, konkurrence intensiveres fra Kina og Hims & Hers kan have begået lovbrud. Kursen presses af negative analytikerestimater.",
     "words_highlighted_list": "",
     "nyheds_type": "Aktuel opsummering",
     "created_at": "2026-02-11T13:41:23.494Z"
@@ -54485,7 +54485,7 @@
     "selskab": 18,
     "dato_fra": "2026-02-02",
     "dato_til": "2026-02-11",
-    "annotation_text": "s├ªdlk",
+    "annotation_text": "sædlk",
     "forced_y_position": null,
     "tidsperiode": "1"
   }
@@ -54497,7 +54497,7 @@
     "selskab": 18,
     "dato_fra": "2025-05-07",
     "dato_til": null,
-    "annotation_text": "St├ªrkt Q1ÔÇæregnskab",
+    "annotation_text": "Stærkt Q1‑regnskab",
     "forced_y_position": null,
     "tidsperiode": "1"
   }
@@ -54521,7 +54521,7 @@
     "selskab": 18,
     "dato_fra": "2025-09-08",
     "dato_til": null,
-    "annotation_text": "Positive data p├Ñ WegovyÔÇæpille",
+    "annotation_text": "Positive data på Wegovy‑pille",
     "forced_y_position": 400.0,
     "tidsperiode": "1"
   }
@@ -54545,7 +54545,7 @@
     "selskab": 18,
     "dato_fra": "2025-11-26",
     "dato_til": null,
-    "annotation_text": "Ans├©ger FDA om h├©jere WegovyÔÇædosis",
+    "annotation_text": "Ansøger FDA om højere Wegovy‑dosis",
     "forced_y_position": null,
     "tidsperiode": "1"
   }
@@ -54557,7 +54557,7 @@
     "selskab": 18,
     "dato_fra": "2025-12-22",
     "dato_til": null,
-    "annotation_text": "FDA godkender WegovyÔÇæpille",
+    "annotation_text": "FDA godkender Wegovy‑pille",
     "forced_y_position": null,
     "tidsperiode": "1"
   }
@@ -54569,7 +54569,7 @@
     "selskab": 18,
     "dato_fra": "2026-01-02",
     "dato_til": "2026-01-31",
-    "annotation_text": "WegovyÔÇæpille lanceres i USA",
+    "annotation_text": "Wegovy‑pille lanceres i USA",
     "forced_y_position": 280.0,
     "tidsperiode": "1"
   }
@@ -54581,7 +54581,7 @@
     "selskab": 18,
     "dato_fra": "2025-02-03",
     "dato_til": null,
-    "annotation_text": "Skuffende ├Ñrsregnskab 2025",
+    "annotation_text": "Skuffende årsregnskab 2025",
     "forced_y_position": null,
     "tidsperiode": "1"
   }
@@ -54641,7 +54641,7 @@
     "selskab": 18,
     "dato_fra": "2025-03-01",
     "dato_til": null,
-    "annotation_text": "├àrs-top",
+    "annotation_text": "Års-top",
     "forced_y_position": null,
     "tidsperiode": "1"
   }
@@ -54675,7 +54675,7 @@
   "pk": 2,
   "fields": {
     "bruger": "Admin",
-    "tekst": "Jeg troede, vi havde gang i et st├©rre comeback, efter at Hims and Hers trak deres pille tilbage",
+    "tekst": "Jeg troede, vi havde gang i et større comeback, efter at Hims and Hers trak deres pille tilbage",
     "created_at": "2026-02-11T22:35:59.137Z",
     "selskab": [
       18
@@ -54687,7 +54687,7 @@
   "pk": 3,
   "fields": {
     "bruger": "Admin",
-    "tekst": "Sp├ªndende med recepttal p├Ñ fredag. Kom s├Ñ!",
+    "tekst": "Spændende med recepttal på fredag. Kom så!",
     "created_at": "2026-02-11T22:36:30.755Z",
     "selskab": [
       18
@@ -54711,7 +54711,7 @@
   "pk": 5,
   "fields": {
     "bruger": "Admin",
-    "tekst": "Fine recepttal - begr├ªnset kursreaktion..",
+    "tekst": "Fine recepttal - begrænset kursreaktion..",
     "created_at": "2026-02-13T10:45:45.406Z",
     "selskab": [
       18
@@ -54749,7 +54749,7 @@
     "selskab": 18,
     "dato": "2026-02-13",
     "kursmaal_pris": 330.0,
-    "anbefaling": "K├©b",
+    "anbefaling": "Køb",
     "analytiker": "Bank of banks",
     "kommentar": ""
   }

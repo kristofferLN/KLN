@@ -31,7 +31,7 @@ def get_plot(x,y, annoteringer, filename):
     plt.figure(figsize=(10,8))
     plt.plot(x,y, color='blue', alpha=0.10)
     plt.margins(x=0.2)
-    plt.margins(y=0.2)
+    plt.margins(y=0.05)
 
     x_list = list(x) ## konverterer x (datoer fra kursgrafen) og y (aktieprisen).
     y_list = list(y)
@@ -71,7 +71,7 @@ def get_plot(x,y, annoteringer, filename):
             xytext=(x_val, y_offset),
             ha='center',
             va='bottom',
-            fontsize=10,
+            fontsize=11,
             arrowprops=dict(
                 arrowstyle='->',
                 color='red',
