@@ -94,7 +94,7 @@ if ENVIRONMENT == 'production':
             'NAME': 'kln2',
             'USER': 'kristoffer.ln@hotmail.com',
             'PASSWORD': 'Abcd1234',
-            'HOST': 'kln-server.postgres.database.azure.com',
+            'HOST': 'kln2.postgres.database.azure.com',
             'PORT': '5432',
             'OPTIONS': {
                 'sslmode': 'require',
