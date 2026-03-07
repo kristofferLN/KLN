@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+{% load dict_extras %}
+{% load static %}
+{% load humanize %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+
+<h1 style="text-align: center; margin-top: 20px; margin-bottom: 20px; font-size: 36px; font-weight: bold; color: #333;">Aktier og Debat</h1>
+
+<div style="
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    background-color: #fff;
+    margin-bottom: 20px;
+">
+
+    <!-- Sektionstitel -->
+    <h2 style="margin-top:0; margin-bottom:10px; font-size: 18px; font-weight: bold; background-color: rgb(255, 127, 127);">Seneste Nyt</h2>
+
+    <!-- Nyhedsindhold -->
+    <ul style="padding-left: 20px; margin: 0; list-style-type: disc;">
+        <li>Vestas har underskrevet en aftale om levering af 85 vindmøller til et nyt havvindprojekt i Nordsøen</li>
+        <li>Novo Nordisk hæver forventningerne til årets omsætning efter stærkt salg af diabetes- og fedmeprodukter i USA og EU</li>
+        <li>Netcompany har sikret sig en fireårig kontrakt med en nordisk myndighed om udvikling af ny selvbetjeningsplatform.</li>
+        {% for nyhed in seneste_nyt %}
+        <li style="margin-bottom: 5px;">
+            <strong>{{ nyhed.titel }}</strong><br>
+            <span style="font-size: 12px; color: #555;">{{ nyhed.dato|date:"d/m/Y" }}</span><br>
+            <span>{{ nyhed.brødtekst }}</span>
+        </li>
+        {% empty %}
+        <li>Ingen nyheder tilgængelige.</li>
+        {% endfor %}
+        
+    
+    </ul>
+
+</div>
+
+{% if aktier %}
+
+<div style="
+    border: 1px solid #ccc; 
+    border-radius: 8px; 
+    padding: 10px;
+    width: 1000px;  
+    margin: 20px auto;
+">
+
+    <!-- ✅ NY INDRE FLEX-ROW -->
+    <div style="
+        display: flex;
+        gap: 20px;
+        align-items: flex-start;
+    ">
+
+        <!-- VENSTRE: I fokus -->
+        <div style="flex: 1;">
+
+            <!-- Header -->
+            <div style="
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                margin-bottom: 8px;
+            ">
+                <div style="
+                    background-color: #ffd84d;
+                    padding: 4px 10px;
+                    border-radius: 6px;
+                    font-weight: bold;
+                    font-size: 14px;
+                ">
+                    I fokus
+                </div>
+
+                <p style="margin: 0; font-weight: bold; font-size: 16px;">
+                    {{ aktier.15 }}
+                </p>
+
+                <div style="display: flex; gap: 5px;">
+                    <button onclick="switchChart('1y')">1 år</button>
+                    <button onclick="switchChart('10y')">10 år</button>
+                </div>
+            </div>
+
+            <img id="chart-img"
+                 src="{{ charts|dict_key:aktier.15|get_item:'1y' }}"
+                 style="max-width:100%; height:auto;">
+        </div>
+
+        <!-- HØJRE: Seneste -->
+        <div style="flex: 1;">
+
+            <!-- Header -->
+            <div style="
+                background-color: #ffd84d;
+                padding: 4px 10px;
+                border-radius: 6px;
+                font-weight: bold;
+                font-size: 14px;
+                margin-bottom: 8px;
+                width: fit-content;
+            ">
+                Seneste
+            </div>
+
+            <ul class="fokus-feed">
+                {% for item in fokus_data %}
+                <li class="fokus-item">
+                    {% if item.type == "ai_nyhed" %}🧠
+                    {% elif item.type == "debat" %}💬
+                    {% elif item.type == "kursmål" %}🎯
+                    {% elif item.type == "nyhed" %}📰
+                    {% elif item.type == "opsummering_relevante_nyheder" %}🌐
+                    {% endif %}
+                    <strong>{{ item.tid }}</strong> – {{ item.tekst }}
+                </li>
+                {% endfor %}
+            </ul>
+
+        </div>
+    </div>
+</div>
+
+<script>
+    const chartsJS = {{ charts|safe }};
+    const aktie = '{{ aktier.15 }}';
+
+    function switchChart(period) {
+        document.getElementById('chart-img').src = chartsJS[aktie][period];
+    }
+</script>
+
+{% endif %}
+
+
+
+
+
+<div style="
+    display: flex;
+    gap: 20px;
+    width: 1000px;
+    margin: 0 auto;
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    background-color: #fff;
+">
+    
+    <div style="flex: 1;">
+    <h2 style="margin-top:0; margin-bottom:10px; font-size: 18px; font-weight: bold; background-color: rgb(255, 127, 127);">
+        Aktier
+    </h2>
+
+        {% for aktie in aktier %}
+        <div style="margin-bottom: 20px; border: 1px solid #eee; padding: 10px; border-radius: 6px;">
+            <h3 style="margin-top:0;">{{ aktie }}</h3>
+            <img src="{{ charts|dict_key:aktie|get_item:'1y' }}" style="max-width:20%; height:auto;">
+        </div>
+        {% endfor %}
+    </div>
+    
+
+   <div style="
+        width: 1px;
+        background-color: #ddd;
+    "></div>
+
+
+
+    <!-- Højre side: Model form og debatindhold -->
+    <div style="flex: 1;">
+        <h2 style="margin-top:0; margin-bottom:10px; font-size: 18px; font-weight: bold; background-color: rgb(255, 127, 127);">Debat</h2>
+        <!-- Her indsætter du din model form -->
+        <form action="" method="post">
+            {% csrf_token %}
+                <div style="margin-bottom: 10px;">
+                {{ debat_form.tekst }}
+            </div>
+            <div style="display: flex; gap: 10px; margin-bottom: 10px;">
+                <div style="flex: 1;">
+                    {{ debat_form.bruger.label_tag }}<br>
+                    {{ debat_form.bruger }}
+                </div>
+                <div style="flex: 1;">
+                    {{ debat_form.selskab.label_tag }}<br>
+                    {{ debat_form.selskab }}
+                </div>
+            </div>
+
+            <button type="submit">Indsend</button>
+        </form>
+
+        <!-- Plads til debatindhold nedenunder -->
+        <div style="margin-top: 20px;">
+
+
+
+{% for debat in debat %}
+  <div style="
+      background-color: {% cycle '#ffffff' '#f7f7f7' %};
+      border: 1px solid #eee;
+      padding: 6px;
+      font-size: small;
+  ">
+      {{ debat.created_at|naturaltime }} skrev
+      <strong>{{ debat.bruger }}</strong>
+      om
+      {% for selskab in debat.selskab.all %}
+          <strong>{{ selskab }}</strong>{% if not forloop.last %}, {% endif %}
+      {% endfor %}
+      :<br>
+      <p>{{ debat.tekst }}</p>
+  </div>
+{% endfor %}
+
+
+        </div>
+
+</body>
+</html>
+
+

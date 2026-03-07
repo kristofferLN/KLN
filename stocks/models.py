@@ -5,6 +5,7 @@ from django.db import models
 class aktier(models.Model):
     selskab = models.CharField(max_length=100)
     ticker = models.CharField(max_length=12)
+    paavirkningsfaktorer = models.TextField(blank=True)
 
     def __str__(self):
         return self.selskab
@@ -42,7 +43,8 @@ class annotation(models.Model):
     selskab = models.ForeignKey(aktier, on_delete=models.CASCADE)
     dato_fra = models.DateField()
     dato_til = models.DateField(blank=True, null=True)
-    annotation_text = models.CharField(max_length=200)
+    pris_paa_dato_fra = models.FloatField(blank=True, null=True) ## kan bruges til at placere annoteringen på en bestemt y-værdi i grafen, hvis det ønskes
+    annotation_text = models.TextField(max_length=140)
     forced_y_position = models.FloatField(blank=True, null=True) ## kan bruges til at tvinge annoteringer til at blive placeret på en bestemt y-værdi i grafen, hvis det ønskes
     tidsperiode = models.CharField(max_length=50, blank=True)
 

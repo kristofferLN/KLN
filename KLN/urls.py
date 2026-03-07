@@ -19,13 +19,16 @@ from django.contrib import admin
 from django.urls import path, re_path
 from django.conf import settings
 from django.views.static import serve
-from stocks.views import base_url
+from stocks.views import frontpage, stocks_frontpage
+from batteri.views import batteri_view
 
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', base_url, name='base_url'),
+    path('', frontpage, name='frontpage'),
+    path('stocks/', stocks_frontpage, name='stocks_frontpage'),
+    path('batteri/', batteri_view, name='batteri_frontpage'),
 ]
 
 

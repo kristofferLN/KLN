@@ -1,0 +1,87 @@
+/* TEST KLN 2026 */
+
+body {
+    background-color: #ffffff;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #333;
+    margin: 0;
+    padding: 20px;
+}
+
+.fokus-feed {
+    list-style: none; /* fjerner bullets */
+    padding: 0;
+    margin: 0;
+    font-size: 14px;
+}
+
+.fokus-item {
+    margin-bottom: 6px;
+    line-height: 1.3; /* lidt luft mellem linjer */
+}
+
+.fokus-item i {
+    color: #666;
+    margin-right: 6px; /* lidt luft før teksten */
+}
+.chart-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 15px;
+    max-width: 900px;
+    margin: 0 auto 20px auto;
+}
+
+.chart-card {
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 10px;
+    background: white;
+    text-align: left;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.chart-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.chart-img {
+    width: 100%;
+    height: 100px;
+    object-fit: contain;   /* vigtig */
+}
+
+.chart-title {
+    margin-top: 6px;
+    font-weight: 600;
+    font-size: 12px;
+}
+
+.box-container {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    gap: 20px;              /* afstand mellem bokse */
+}
+
+.box-container li {
+    flex: 1;                /* fylder lige meget */
+}
+
+.box-container a {
+    display: block;
+    padding: 40px;
+    text-align: center;
+    background-color: #f2f2f2;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 20px;
+    font-weight: bold;
+    color: black;
+}
+
+.box-container a:hover {
+    background-color: #ddd;
+}

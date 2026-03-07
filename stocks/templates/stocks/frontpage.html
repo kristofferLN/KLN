@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+{% extends "base.html" %}
+{% block title %}Portfolio{% endblock %}
+{% block content %}
+<style>
+    body {
+        background-color: rgb(248, 214, 214);
+    }
+</style>
+
+<h1>Hej, og velkommen</h1>
+
+<p>
+Min portfolio består af to igangværende projekter, som begge er bygget fra bunden.</p>
+<p>For at kunne vise dem har jeg lært at bygge en hjemmeside med Python og Django, og som er hostet på Microsoft Azure.</p>
+<p>Følgende stack er anvendt til selve hjemmesideopbygning: Django, html, css, REST API, sqllite (udvikling), postgresql (produktion), azure til hosting og github som mellemled og til versionering.</p>
+</p>
+
+<ul class="box-container">
+
+    
+<li class="box" style ="border: 2px solid black; border-radius: 10px; padding: 10px;">
+    <h2>Aktier</h2>
+    <p>
+    En hjemmeside med nyheds-API'er, debat-funktionalitet og grafisk indhold vedr. aktier.
+    Siden gør brug af AI-modeller til tekstklassificering og tekstgenerering til opsummeringer.
+    </p>
+    <p>Stack (udover stack til hjemmeside): pandas, yfinance, openai, matplotlib , Django ORM
+         </p>
+         <br>
+    <a href="{% url 'stocks_frontpage' %}">Gå til projekt</a>
+</li>
+
+<li class="box" style="border: 2px solid black; border-radius: 10px; padding: 10px;">
+    <h2>Batteri/systemydelser</h2>
+    <p>
+    Et data science projekt, hvor jeg analyserer priser på systemydelser,
+    som er relevante ved investering i et batterianlæg. Jeg giver et bud på, om en aktuel investeringscase er rentabel.
+    </p>
+    <p>Stack (udover stack til hjemmeside): pandas, numpy, matplotlib, Hugging Face(BART, AI agent med smolagents), scikit-learn, energidataservice </p>
+    <a href="{% url 'batteri_frontpage' %}">Gå til projekt</a>
+</li>
+
+</ul>
+
+<p>
+Kode og metode:
+<a href="https://github.com/kristofferLN/KLN">Min GitHub for projektet</a>
+</p>
+
+{% endblock %}

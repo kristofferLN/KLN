@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+{% extends "base.html" %}
+{% block title %}Batteri projekt{% endblock %}
+{% block content %}
+    <h1 style="background-color: gray; padding: 10px;">Systemydelser i DK2 2025</h1>
+    <h2 style="background-color: yellow; padding: 1px;">1. Et kig på data</h2>
+    <h3 style="background-color: lightgray; padding: 1px; margin-bottom: 5px;">Prisudvikling for systemydelser (eur/MWh)</h3>
+    <p style="margin-top: 0;">De tre kortsigtede, frekvensregulerende ydelser, som et batteri kan levere i DK2.</p>
+    <img src="data:image/png;base64,{{ plot_price }}" />
+
+    <h3 style="background-color: lightgray; padding: 1px; margin-bottom: 5px;">Ændring i daglig variation over året (rød=høj pris, grøn=lav pris)</h3>
+    <p style="margin-top: 0;">At omdanne priserne til gennemsnitlige daglige variationer kan give et billede af, hvad der driver priserne.</p>
+    <img src="data:image/png;base64,{{ plot_daily_variation }}" />
+
+    <h3 style="background-color: lightgray; padding: 1px; margin-bottom: 5px;">Indkøbte mængde kapacitet fra danske aktører (MW)</h3>
+    <p style="margin-top: 0;">Energinets behov for frekvensregulerende ydelser er som udgangspunkt stabilt fra dag-til-dag, uge-til-uge. Graferne her viser, hvor meget de indkøber fra danske aktører.</p>
+    <img src="data:image/png;base64,{{ plot_purchasedvolumne_local }}" />
+
+    <h3 style="background-color: lightgray; padding: 1px; margin-bottom: 5px;">Day-ahead forecast for VE-produktion (MW)</h3>
+    <p style="margin-top: 0;">Selvom der er udsving i den forventede VE-produktion, så ændrer det ikke Energinets behov fra dag-til-dag. Men det kan påvirke, hvorvidt det er attraktivt, fx for et batteri, at byde på systemydelser.</p>
+    <img src="data:image/png;base64,{{ plot_energy_prod }}" />
+
+    <h3 style="background-color: lightgray; padding: 1px; margin-bottom: 5px;">Day-ahead elpriser (MW)</h3>
+    <p style="margin-top: 0;">På timebasis.</p>
+    
+    <img src="data:image/png;base64,{{ plot_dayahead }}" />
+
+    <h3 style="background-color: lightgray; padding: 1px; margin-bottom: 5px;">Andre variabler, som har stor indflydelse på priser på systemydelser</h3>
+    <p style="margin-top: 0;">Data er ikke skaffet endnu...</p>
+
+<div class="chart-card">
+    <ul>
+        <li>Overførselskapacitet mellem Danmark og Sverige, men også mellem Norge og Sverige</li>
+        <li>Nordisk elproduktion, særligt vandkraft</li>
+        <li>Andre markeder, fx AFFR & FFR (data implementeres snarest...)</li>
+        <li>Introduktion af nye markeder/produkter kan forstyrre kortsigtet</li>
+    </ul>
+</div>
+
+
+
+    <h2 style="background-color: yellow; padding: 1px;">2. Et kig på sammenhænge</h2>
+    <h3 style="background-color: lightgray; padding: 1px; margin-bottom: 5px;">Korrelationsmatrix for systemydelser og VE-produktion</h3>
+    <p style="margin-top: 0;">Er der overordnet set sammengæng mellem nogle af vores variabler? Data er stadig på time-basis, men er nu renset for ekstreme outliers.</p>
+    <img src="data:image/png;base64,{{ correlation_outliers_removed }}" />
+
+    <h2 style="background-color: yellow; padding: 1px;">3. Kan man forudsige priser i morgen? En machine learning model</h2>
+    <p style="margin-top: 0;">Her kommer en simpel machine learning model; en binær model, hvor prisen på FCR-D opregulering i 2025 er kategoriseret som "høj eller lav" for hver time. Herefter trænes modellen med energiproduktionsdata og modellen bruges på testdata. Resultaterne viser, hvor mange procent af alle årets timer (af testdata), det kunne lade sig gøre at forudsige "høj" eller "lav" pris</p>
+    <p>Det lykkedes modellen at forudsige korrekt <strong>{{logistic_model}}%</strong> af gangene</p>
+
+    <h2 style="background-color: yellow; padding: 1px;">4. Lad AI tænke for os</h2>
+      <h3 style="background-color: lightgray; padding: 1px; margin-bottom: 5px;">En AI agent, der trækker på vejrdata</h3>
+    <p style="margin-top: 0;">Prøv...</p>
+    <div class="chart-card">
+    <ul>
+        Aktivér AI agent
+    </ul>
+</div>
+
+
+
+{% endblock %}
