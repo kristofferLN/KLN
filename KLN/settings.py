@@ -91,8 +91,8 @@ if ENVIRONMENT == 'production':
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql',
-            'NAME': 'kln-database',
-            'USER': 'ulvttghukq',
+            'NAME': 'kln2',
+            'USER': 'kristoffer.ln@hotmail.com',
             'PASSWORD': 'Abcd1234',
             'HOST': 'kln-server.postgres.database.azure.com',
             'PORT': '5432',
