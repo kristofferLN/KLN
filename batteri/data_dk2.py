@@ -422,7 +422,6 @@ def FCR_AI_AGENT():
 
 
 def investerings_case():
-   
    daily_data = fcr_renew_dayahead
    # for all prices above 100, set to 100.
    for variabel in ["FCR-D_ned_TotalPriceEUR", "FCR-D_op_TotalPriceEUR", "FCR-N_TotalPriceEUR"]:
