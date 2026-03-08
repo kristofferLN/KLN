@@ -27,7 +27,7 @@ from batteri.views import batteri_view
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', frontpage, name='frontpage'),
-    path('stocks/', stocks_frontpage, name='stocks_frontpage'),
+    path('aktier/', stocks_frontpage, name='stocks_frontpage'),
     path('batteri/', batteri_view, name='batteri_frontpage'),
 ]
 

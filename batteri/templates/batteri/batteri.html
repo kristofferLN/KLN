@@ -45,15 +45,44 @@
     <img src="data:image/png;base64,{{ correlation_outliers_removed }}" />
 
     <h2 style="background-color: yellow; padding: 1px;">3. Kan man forudsige priser i morgen? En machine learning model</h2>
-    <p style="margin-top: 0;">Her kommer en simpel machine learning model; en binær model, hvor prisen på FCR-D opregulering i 2025 er kategoriseret som "høj eller lav" for hver time. Herefter trænes modellen med energiproduktionsdata og modellen bruges på testdata. Resultaterne viser, hvor mange procent af alle årets timer (af testdata), det kunne lade sig gøre at forudsige "høj" eller "lav" pris</p>
+    <p style="margin-top: 0;">Her har jeg lavet en simpel machine learning model; en binær model, hvor prisen på FCR-D opregulering i 2025 er kategoriseret som "høj eller lav" for hver time. Herefter trænes modellen med energiproduktionsdata og modellen bruges på testdata. Resultaterne viser, hvor mange procent af alle årets timer (af testdata), det kunne lade sig gøre at forudsige "høj" eller "lav" pris via forventninger til energiproduktion</p>
     <p>Det lykkedes modellen at forudsige korrekt <strong>{{logistic_model}}%</strong> af gangene</p>
 
-    <h2 style="background-color: yellow; padding: 1px;">4. Lad AI tænke for os</h2>
-      <h3 style="background-color: lightgray; padding: 1px; margin-bottom: 5px;">En AI agent, der trækker på vejrdata</h3>
-    <p style="margin-top: 0;">Prøv...</p>
-    <div class="chart-card">
+
+        <h2 style="background-color: yellow; padding: 1px;">4. Investeringscase: Et batteri i DK2</h2>
+    <p style="margin-top: 0;">Er det en profitabel investering at investere i et 1MW batteri i DK2 med udgangspunkt i 2025-priser? Følgende antagelser er gjort:</p>
     <ul>
-        Aktivér AI agent
+        <li>Investeringsstørrelse: 1MW</li>
+        <li>CAPEX (Batteriet, installation, nettilslutning m.m.): 4 mio.kr.</li>
+        <li>OPEX (drift, vedligehold, omsætningsdeling, jordleje, tariffer m.m.): 15 Øre/kWh</li>
+        <li>Investeringens varighed: 10 år (ingen scrapværdi)</li>
+        <li>2025-priser anvendes til at beregne fremtidig indtjening</li>
+        <li>Det antages, at batteriet til en hver tid opererer på det mest profitable marked (meget optimistisk).</li>
+        <li>Det antages, at batteriet er i drift alle årets timer (frekvensregulering kræver ingen opladning) (meget optimistisk)</li>
+        <li>Der antages, at priser bliver på samme niveau (markedet er allerede mættet)</li>
+
+        <li>Gennemsnitlig timepris, hvis bedste marked rammes: {{ investerings_case.average_price_for_all_high_prices }} kr./MWt</li>
+        <li>Årlig indtjening: {{ investerings_case.aarlig_indtjening }} kr./år</li>
+        <br>
+        <strong>Samlet IRR på 10 år: 2%</strong>
+        <br>
+        <br>
+        <li>I praksis vil batteriet formentlig holde længere end 10 år (eller scrapværdi) og indtjening vil være optimeret via multimarkedsstrategi (dvs. inkl. trading og AFRR market).</li>
+        <li>Omkostninger afhænger i høj grad af samarbejdsaftaler og placering af batteri.</li>
+
+    <h2 style="background-color: yellow; padding: 1px;">5. Priser i DK1 - en AI Agent analyserer</h2>
+      <h3 style="background-color: lightgray; padding: 1px; margin-bottom: 5px;">En AI agent, der er bygget til at analysere FCR data i DK1</h3>
+    <p style="margin-top: 0;">Alt indtil nu har været egenanalyse af systemydelser i DK2. Denne AI agent er sat op til på egen hånd at analysere priserne i DK1. Hvis AI agenten aktiveres på nedenstående knap, vil siden bliver opdateret og du skal scrolle ned til resultatet.</p>
+    <a href="?run_ai=1">
+        <button>Kør AI‑analyse af DK1</button>
+    </a>
+    {% if ai_agent_dk1 %}
+    <h3>AI‑analyse</h3>
+    <p>{{ ai_agent_dk1.insight }}</p>
+    {% endif %}
+
+
+    
     </ul>
 </div>
 

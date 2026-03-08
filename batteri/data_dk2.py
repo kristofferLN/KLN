@@ -14,6 +14,7 @@ import numpy as np
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import classification_report, confusion_matrix
 from sklearn.model_selection import train_test_split
+from smolagents import CodeAgent, InferenceClientModel, VisitWebpageTool
 
 
 # fcr-d_ned
@@ -353,4 +354,82 @@ def logistic_regression_model():
     print("Confusion Matrix:\n", confusion_matrix_result)
     print("Accuracy:\n", accuracy_pct)
     return accuracy_pct
-    
+
+
+
+
+
+###################### AGENTS, smolagents (codeagent)
+
+
+#info = search_web(dk1_data)
+#extracted_info = extract_information(info)
+#extend ny data
+#find min eller max på data fx
+
+import requests
+import pandas as pd
+from smolagents import CodeAgent, InferenceClientModel
+
+def FCR_AI_AGENT():
+    agent = CodeAgent(tools=[], model=InferenceClientModel())
+    base_url = "https://api.energidataservice.dk/dataset/FcrDK1"
+    params = {
+        "offset": 0,
+        "start": "2025-01-01T00:00",
+        "end": "2026-01-01T00:00",
+        "sort": "HourUTC DESC",
+        "limit": 1000
+    }
+    resp = requests.get(base_url, params=params, timeout=30)
+    resp.raise_for_status()
+    data = resp.json()
+    df = pd.DataFrame(data["records"])
+    fcr_dk1 = df[["HourDK", "FCRdk_DKK"]].copy()
+    fcr_dk1["HourDK"] = pd.to_datetime(fcr_dk1["HourDK"])
+    fcr_dk1 = fcr_dk1.sort_values("HourDK")
+    # statistik (hurtigt og stabilt)
+    avg = float(fcr_dk1["FCRdk_DKK"].mean())
+    min_row = fcr_dk1.loc[fcr_dk1["FCRdk_DKK"].idxmin()]
+    max_row = fcr_dk1.loc[fcr_dk1["FCRdk_DKK"].idxmax()]
+    top_high = fcr_dk1.nlargest(5, "FCRdk_DKK")
+    top_low  = fcr_dk1.nsmallest(5, "FCRdk_DKK")
+    # lad agenten lave en kort forklaring baseret på opsummering (ikke 1000 rækker)
+    summary_text = f"""
+    Gennemsnit: {avg:.2f}
+    Minimum: {min_row['FCRdk_DKK']:.2f} på {min_row['HourDK']}
+    Maximum: {max_row['FCRdk_DKK']:.2f} på {max_row['HourDK']}
+    Top 5 høje: {top_high.to_dict('records')}
+    Top 5 lave: {top_low.to_dict('records')}
+    Skriv en kort forklaring til en kunde: hvad er interessant og hvad betyder det?
+    """
+    insight = agent.run(summary_text)
+    # returnér template-klar context
+    return {
+        "average": round(avg, 2),
+        "min": {"value": float(min_row["FCRdk_DKK"]), "time": min_row["HourDK"].strftime("%Y-%m-%d %H:%M")},
+        "max": {"value": float(max_row["FCRdk_DKK"]), "time": max_row["HourDK"].strftime("%Y-%m-%d %H:%M")},
+        "top_high": [
+            {"time": r["HourDK"].strftime("%Y-%m-%d %H:%M"), "value": float(r["FCRdk_DKK"])}
+            for _, r in top_high.iterrows()
+        ],
+        "top_low": [
+            {"time": r["HourDK"].strftime("%Y-%m-%d %H:%M"), "value": float(r["FCRdk_DKK"])}
+            for _, r in top_low.iterrows()
+        ],
+        "insight": str(insight),
+    }
+
+
+def investerings_case():
+   
+   daily_data = fcr_renew_dayahead
+   # for all prices above 100, set to 100.
+   for variabel in ["FCR-D_ned_TotalPriceEUR", "FCR-D_op_TotalPriceEUR", "FCR-N_TotalPriceEUR"]:
+        daily_data.loc[daily_data[variabel] > 80, variabel] = 80
+   daily_data = fcr_renew_dayahead.set_index("DateTime").resample("D")[["FCR-D_ned_TotalPriceEUR", "FCR-D_op_TotalPriceEUR", "FCR-N_TotalPriceEUR"]].mean().reset_index()
+   daily_data["High_Price"] = daily_data[["FCR-D_ned_TotalPriceEUR", "FCR-D_op_TotalPriceEUR", "FCR-N_TotalPriceEUR"]].max(axis=1)
+   daily_data["High_Price_pricetype"] = daily_data[["FCR-D_ned_TotalPriceEUR", "FCR-D_op_TotalPriceEUR", "FCR-N_TotalPriceEUR"]].idxmax(axis=1)
+   average_price_for_all_high_prices = round((daily_data["High_Price"].mean())*7.45,2)
+   return {"average_price_for_all_high_prices": average_price_for_all_high_prices,
+           "aarlig_indtjening": average_price_for_all_high_prices*24*365}
