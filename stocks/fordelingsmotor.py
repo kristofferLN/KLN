@@ -76,7 +76,7 @@ def gnews_novo_makro():
     })
     return items
 
-novo_nyt = pd.read_excel("C:/Users/krist/VSCodeProjects/KLN/novo_news.xlsx", sheet_name="Ark1")
+novo_nyt = pd.read_excel("novo_news.xlsx", sheet_name="Ark1")
 
 def gnews_novo_excel():
     items = []
@@ -96,7 +96,7 @@ def gnews_novo_makro_excel():
     })
     return items
 
-novo_tre_nyheder = pd.read_excel("C:/Users/krist/VSCodeProjects/KLN/novo_news.xlsx", sheet_name="Ark2")
+novo_tre_nyheder = pd.read_excel("novo_news.xlsx", sheet_name="Ark2")
 novo_tre_nyheder["time"] = pd.to_datetime(novo_tre_nyheder["time"])
 def get_tre_novo_nyheder():
     items = []

@@ -194,8 +194,8 @@ def bulk_migrering_annotations():
             dato_til=row['dato_til'] if pd.notnull(row['dato_til']) else None,
             annotation_text=row['annotation_text'])
 
-
-de_seneste_nyheder = pd.read_excel("C:/Users/krist/VSCodeProjects/KLN/novo_news.xlsx", sheet_name="Ark3")
+#will you make relative path below to make it work on other computers?
+de_seneste_nyheder = pd.read_excel("novo_news.xlsx", sheet_name="Ark3")
 def de_seneste_nyheder_i_toppen():
     #loop through the elements of the dataframe and add to a list
     nyheder = []
