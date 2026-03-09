@@ -8,12 +8,14 @@ import matplotlib.dates as mdates
 from matplotlib.ticker import FuncFormatter
 import base64
 from io import BytesIO
+import requests
 import yfinance as yf
 from .models import aktier, aktiepriser, nyheder_links, annotation
 from openai import OpenAI
 import datetime as dt
 from django.conf import settings
 from adjustText import adjust_text
+import textwrap
 
 
 def get_graph():
@@ -27,9 +29,8 @@ def get_graph():
     return graph
 
 def get_plot(x,y, annoteringer, filename, selskabet):
-    plt.switch_backend('AGG')
-    plt.figure(figsize=(6, 5))
-    plt.plot(x, y, color = 'black', alpha=1, linewidth=1)
+    
+    
     
     x_list = list(x) ## konverterer x (datoer fra kursgrafen) og y (aktieprisen) til en ægte list.
     y_list = list(y)
@@ -40,11 +41,17 @@ def get_plot(x,y, annoteringer, filename, selskabet):
     max_x = max(x_list)
     min_x = min(x_list)
     offset_base = max_y * 0.05
+
+    colore = 'green' if y_list[-1] > y_list[0] else 'red'  # Grøn hvis stigning, rød hvis fald
+
+    plt.switch_backend('AGG')
+    plt.figure(figsize=(6, 5))
+    plt.plot(x, y, color = colore, alpha=0.1, linewidth=0.5)
     ymin,ymax = plt.ylim()
     yticks = plt.yticks()[0]
     plt.ylim(ymin, ymax*1.06)
     plt.yticks(yticks, fontsize="large")
-    plt.fill_between(x, y, plt.ylim()[0], alpha=0.3)
+    plt.fill_between(x, y, plt.ylim()[0], color=colore, alpha=0.1)
     
 
     annoteringer_filtered = [
@@ -61,15 +68,22 @@ def get_plot(x,y, annoteringer, filename, selskabet):
             continue
         xy = (a.dato_fra, y_value)
         offset = offset_base + ((max_y - y_value) * 0.4)
+        #make an if statement to only wrap text if it is the first part of last part of the x-axis.
+        if a.dato_fra < min_x+dt.timedelta(days=10) or a.dato_fra > max_x-dt.timedelta(days=30):
+            wrapped_text = textwrap.fill(a.annotation_text, width=15)
+        elif a.dato_fra < min_x+dt.timedelta(days=45) or a.dato_fra > max_x-dt.timedelta(days=70):
+            wrapped_text = textwrap.fill(a.annotation_text, width=25)
+        else:
+            wrapped_text = a.annotation_text
         plt.annotate(
-            a.annotation_text,
+            wrapped_text,
             xy=xy,
             xytext=(xy[0], xy[1] + offset + (a.forced_y_position if a.forced_y_position else 0)),
             fontsize=9,
-            color='white',
+            color='black',
             ha='center',
             va='bottom',
-            bbox=dict(boxstyle="round,pad=0.3", edgecolor='black', facecolor='black', alpha=0.5),
+            bbox=dict(boxstyle="round,pad=0.3", edgecolor='black', facecolor='white', alpha=0.95),
             arrowprops=dict(arrowstyle='-', linestyle='--', color='black')
         )
     
@@ -123,6 +137,25 @@ def aktiepris_close_til_db():
         except Exception:
             continue
 
+def aktiepris_close_til_db_only_incremental():
+    tickers = aktier.objects.values("ticker")
+    for tick in tickers:
+        try:    
+            aktie = yf.Ticker(tick["ticker"])
+            hist = aktie.history(period="1y")
+            if hist.empty:
+                continue
+            hist = hist[['Close']]  # Kun 'Close' priser
+            hist.index = pd.to_datetime(hist.index)
+            for dato, row in hist.iterrows():
+                pris_close = row['Close']
+                if not aktiepriser.objects.filter(selskab=aktier.objects.get(ticker=tick["ticker"]), dato=dato).exists():
+                    aktiepris_entry = aktiepriser(selskab=aktier.objects.get(ticker=tick["ticker"]), dato=dato, pris_close=pris_close)
+                    aktiepris_entry.save()
+        except Exception:
+            continue
+
+
 def aktiekursudvikling(aktie_navn):
     aktiepriser_qs = aktiepriser.objects.filter(selskab__selskab=aktie_navn).order_by('dato')
     en_uge_udvikling = aktiepriser_qs.filter(dato__gte=dt.date.today() - dt.timedelta(days=7))
@@ -160,6 +193,15 @@ def bulk_migrering_annotations():
             dato_fra=row['dato_fra'], 
             dato_til=row['dato_til'] if pd.notnull(row['dato_til']) else None,
             annotation_text=row['annotation_text'])
+
+
+de_seneste_nyheder = pd.read_excel("C:/Users/krist/VSCodeProjects/KLN/novo_news.xlsx", sheet_name="Ark3")
+def de_seneste_nyheder_i_toppen():
+    #loop through the elements of the dataframe and add to a list
+    nyheder = []
+    for index, row in de_seneste_nyheder.iterrows():
+        nyheder.append(row["nyhed"])
+    return nyheder
 
 
 

@@ -8,7 +8,7 @@
 # import pandas as pd
 # import statsmodels.api as sm
 
-# #fcr_dk1
+#fcr_dk1
 # base_url = "https://api.energidataservice.dk/dataset/FcrDK1"
 # params = {
 #     'offset': 0,

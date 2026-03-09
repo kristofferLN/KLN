@@ -2,7 +2,7 @@ import os
 from django.shortcuts import render
 from matplotlib import ticker
 from .models import aktier, aktiepriser, ai_news_summary, annotation, debat
-from .databehandling import get_plot, aktiekursudvikling
+from .databehandling import get_plot, aktiekursudvikling, de_seneste_nyheder_i_toppen
 from .fordelingsmotor import byg_fokus
 from django.utils.text import slugify
 from django.conf import settings
@@ -93,7 +93,9 @@ def stocks_frontpage(request):
     else:
         form = DebatForm()
 
-    return render(request, 'stocks/stocks_frontpage.html', {'aktier': aktier_list, 'charts': charts, 'fokus_data': fokus, 'aktiekursudvikling_data': aktiekursudvikling_data, 'debat_form': form, 'debat': debat_indhold})
+    seneste_nyheder_i_toppen = de_seneste_nyheder_i_toppen()
+
+    return render(request, 'stocks/stocks_frontpage.html', {'aktier': aktier_list, 'charts': charts, 'fokus_data': fokus, 'aktiekursudvikling_data': aktiekursudvikling_data, 'debat_form': form, 'debat': debat_indhold, 'seneste_nyheder_i_toppen': seneste_nyheder_i_toppen})
 
 
 #     for selskab, data in stocks_data.items():

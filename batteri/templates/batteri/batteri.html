@@ -2,7 +2,11 @@
 {% extends "base.html" %}
 {% block title %}Batteri projekt{% endblock %}
 {% block content %}
-    <h1 style="background-color: gray; padding: 10px;">Systemydelser i DK2 2025</h1>
+    <h1 style="background-color: gray; padding: 10px;">Systemydelser i DK2 2025 - analyse af priser og sammenhænge</h1>
+    <p style="margin-top: 0;">
+    <strong>Hvorfor dette projekt?</strong> For at dygtiggøre mig i data science relaterede metoder <br>
+    <strong>Hvorfor dette emne?</strong> Fordi jeg har en del erhvervsmæssig erfaring inden for finansiering af BESS-anlæg <br>
+    <strong>Tilgang til projektet:</strong> Undersøg og inspicer grunddata -> find sammengænge -> test modeller</p>
     <h2 style="background-color: yellow; padding: 1px;">1. Et kig på data</h2>
     <h3 style="background-color: lightgray; padding: 1px; margin-bottom: 5px;">Prisudvikling for systemydelser (eur/MWh)</h3>
     <p style="margin-top: 0;">De tre kortsigtede, frekvensregulerende ydelser, som et batteri kan levere i DK2.</p>
@@ -52,23 +56,27 @@
         <h2 style="background-color: yellow; padding: 1px;">4. Investeringscase: Et batteri i DK2</h2>
     <p style="margin-top: 0;">Er det en profitabel investering at investere i et 1MW batteri i DK2 med udgangspunkt i 2025-priser? Følgende antagelser er gjort:</p>
     <ul>
-        <li>Investeringsstørrelse: 1MW</li>
+        <li>BESS kapacitet: 1MW</li>
         <li>CAPEX (Batteriet, installation, nettilslutning m.m.): 4 mio.kr.</li>
-        <li>OPEX (drift, vedligehold, omsætningsdeling, jordleje, tariffer m.m.): 15 Øre/kWh</li>
-        <li>Investeringens varighed: 10 år (ingen scrapværdi)</li>
+        <li>OPEX (drift, vedligehold, omsætningsdeling, jordleje, tariffer m.m.): 15 Øre/kWh (150 kr./MWh)</li>
+        <li>Investeringens varighed: 10 år (ingen scrapværdi antaget)</li>
         <li>2025-priser anvendes til at beregne fremtidig indtjening</li>
-        <li>Det antages, at batteriet til en hver tid opererer på det mest profitable marked (meget optimistisk).</li>
+        <li>Det antages, at batteriet til en hver tid (i alle døgnets fire-timers blokke) opererer på det mest profitable marked (meget optimistisk).</li>
+        I 2025 har det mest profitable marked i de fleste fire-timers blokke været FCR-N (se priser øverst) <br>
+        Der er endnu ikke taget højde for at der kan bydes på FCR-D op- og nedregulering samtidig, hvilket kan øge indtjeningen yderligere.
         <li>Det antages, at batteriet er i drift alle årets timer (frekvensregulering kræver ingen opladning) (meget optimistisk)</li>
-        <li>Der antages, at priser bliver på samme niveau (markedet er allerede mættet)</li>
-
+        <li>Der antages, at priser bliver på samme niveau de næste 10 år (markedet er allerede mættet)</li>
+    
         <li>Gennemsnitlig timepris, hvis bedste marked rammes: {{ investerings_case.average_price_for_all_high_prices }} kr./MWt</li>
-        <li>Årlig indtjening: {{ investerings_case.aarlig_indtjening }} kr./år</li>
+        <li>Årlig omsætning: {{ investerings_case.aarlig_indtjening }} kr./år</li>
         <br>
-        <strong>Samlet IRR på 10 år: 2%</strong>
+        Cash flowet for hvert år i 10 år beregnes på baggrund af ovenstående capex, omsætning og opex. IRR kan beregnes til:<br>
+        <strong>IRR: 2%</strong>
         <br>
         <br>
         <li>I praksis vil batteriet formentlig holde længere end 10 år (eller scrapværdi) og indtjening vil være optimeret via multimarkedsstrategi (dvs. inkl. trading og AFRR market).</li>
         <li>Omkostninger afhænger i høj grad af samarbejdsaftaler og placering af batteri.</li>
+    </ul>
 
     <h2 style="background-color: yellow; padding: 1px;">5. Priser i DK1 - en AI Agent analyserer</h2>
       <h3 style="background-color: lightgray; padding: 1px; margin-bottom: 5px;">En AI agent, der er bygget til at analysere FCR data i DK1</h3>

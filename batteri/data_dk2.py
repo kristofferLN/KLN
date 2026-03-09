@@ -18,139 +18,157 @@ from smolagents import CodeAgent, InferenceClientModel, VisitWebpageTool
 
 
 # fcr-d_ned
-base_url = "https://api.energidataservice.dk/dataset/FcrNdDK2"
-params = {
-    'offset': 0,
-    'start': '2025-01-01T00:00',
-    'end': '2026-01-01T00:00',
-    'sort': 'HourUTC DESC',
-    'filter': '{"PriceArea":["DK2"], "ProductName":["FCR-D ned"], "AuctionType":["Total"]}'
-}
-hent_data = requests.get(base_url, params=params)
-data = hent_data.json()
-df = pd.DataFrame(data['records'], columns=["HourDK", "PurchasedVolumeLocal", "PurchasedVolumeTotal", "PriceTotalEUR"])
-df = df.rename(columns={"HourDK": "DateTime", "PurchasedVolumeLocal": "FCR-D_ned_PurchasedVolumeLocal", "PurchasedVolumeTotal": "FCR-D_ned_PurchasedVolumeTotal", "PriceTotalEUR": "FCR-D_ned_TotalPriceEUR"})
-df["DateTime"] = pd.to_datetime(df["DateTime"])
+def hent_fcr_d_ned_data():    
+    base_url = "https://api.energidataservice.dk/dataset/FcrNdDK2"
+    params = {
+        'offset': 0,
+        'start': '2025-01-01T00:00',
+        'end': '2026-01-01T00:00',
+        'sort': 'HourUTC DESC',
+        'filter': '{"PriceArea":["DK2"], "ProductName":["FCR-D ned"], "AuctionType":["Total"]}'
+    }
+    hent_data = requests.get(base_url, params=params)
+    data = hent_data.json()
+    df = pd.DataFrame(data['records'], columns=["HourDK", "PurchasedVolumeLocal", "PurchasedVolumeTotal", "PriceTotalEUR"])    
+    df = df.rename(columns={"HourDK": "DateTime", "PurchasedVolumeLocal": "FCR-D_ned_PurchasedVolumeLocal", "PurchasedVolumeTotal": "FCR-D_ned_PurchasedVolumeTotal", "PriceTotalEUR": "FCR-D_ned_TotalPriceEUR"})
+    df["DateTime"] = pd.to_datetime(df["DateTime"])
+    df.to_excel("FCR-D_ned.xlsx", index=False)
 
 # fcr-d_op
-base_url = "https://api.energidataservice.dk/dataset/FcrNdDK2"
-params = {
-    'offset': 0,
-    'start': '2025-01-01T00:00',
-    'end': '2026-01-01T00:00',
-    'sort': 'HourUTC DESC',
-    'filter': '{"PriceArea":["DK2"], "ProductName":["FCR-D upp"], "AuctionType":["Total"]}'
-}
-hent_data1 = requests.get(base_url, params=params)
-data1 = hent_data1.json()
-df1 = pd.DataFrame(data1['records'], columns=["HourDK", "PurchasedVolumeLocal", "PurchasedVolumeTotal", "PriceTotalEUR"])
-df1 = df1.rename(columns={"HourDK": "DateTime", "PurchasedVolumeLocal": "FCR-D_op_PurchasedVolumeLocal", "PurchasedVolumeTotal": "FCR-D_op_PurchasedVolumeTotal", "PriceTotalEUR": "FCR-D_op_TotalPriceEUR"})
-df1["DateTime"] = pd.to_datetime(df1["DateTime"])
+def hent_fcr_d_op_data():
+    base_url = "https://api.energidataservice.dk/dataset/FcrNdDK2"
+    params = {
+        'offset': 0,
+        'start': '2025-01-01T00:00',
+        'end': '2026-01-01T00:00',
+        'sort': 'HourUTC DESC',
+        'filter': '{"PriceArea":["DK2"], "ProductName":["FCR-D upp"], "AuctionType":["Total"]}'
+    }
+    hent_data1 = requests.get(base_url, params=params)
+    data1 = hent_data1.json()
+    df1 = pd.DataFrame(data1['records'], columns=["HourDK", "PurchasedVolumeLocal", "PurchasedVolumeTotal", "PriceTotalEUR"])
+    df1 = df1.rename(columns={"HourDK": "DateTime", "PurchasedVolumeLocal": "FCR-D_op_PurchasedVolumeLocal", "PurchasedVolumeTotal": "FCR-D_op_PurchasedVolumeTotal", "PriceTotalEUR": "FCR-D_op_TotalPriceEUR"})
+    df1["DateTime"] = pd.to_datetime(df1["DateTime"])
+    df1.to_excel("FCR-D_op.xlsx", index=False)
 
 # fcr-n
-base_url = "https://api.energidataservice.dk/dataset/FcrNdDK2"
-params = {
-    'offset': 0,
-    'start': '2025-01-01T00:00',
-    'end': '2026-01-01T00:00',
-    'sort': 'HourUTC DESC',
-    'filter': '{"PriceArea":["DK2"], "ProductName":["FCR-N"], "AuctionType":["Total"]}'
-}
-hent_data2 = requests.get(base_url, params=params)
-data2 = hent_data2.json()
-df2 = pd.DataFrame(data2['records'], columns=["HourDK", "PurchasedVolumeLocal", "PurchasedVolumeTotal", "PriceTotalEUR"])
-df2 = df2.rename(columns={"HourDK": "DateTime", "PurchasedVolumeLocal": "FCR-N_PurchasedVolumeLocal", "PurchasedVolumeTotal": "FCR-N_PurchasedVolumeTotal", "PriceTotalEUR": "FCR-N_TotalPriceEUR"})
-df2["DateTime"] = pd.to_datetime(df2["DateTime"])
+def hent_fcr_n_data():
+    base_url = "https://api.energidataservice.dk/dataset/FcrNdDK2"
+    params = {
+        'offset': 0,
+        'start': '2025-01-01T00:00',
+        'end': '2026-01-01T00:00',
+        'sort': 'HourUTC DESC',
+        'filter': '{"PriceArea":["DK2"], "ProductName":["FCR-N"], "AuctionType":["Total"]}'
+    }
+    hent_data2 = requests.get(base_url, params=params)
+    data2 = hent_data2.json()
+    df2 = pd.DataFrame(data2['records'], columns=["HourDK", "PurchasedVolumeLocal", "PurchasedVolumeTotal", "PriceTotalEUR"])
+    df2 = df2.rename(columns={"HourDK": "DateTime", "PurchasedVolumeLocal": "FCR-N_PurchasedVolumeLocal", "PurchasedVolumeTotal": "FCR-N_PurchasedVolumeTotal", "PriceTotalEUR": "FCR-N_TotalPriceEUR"})
+    df2["DateTime"] = pd.to_datetime(df2["DateTime"])
+    df2.to_excel("FCR-N.xlsx", index=False)
 
-#combine df,df1,df2
-df_fcr = pd.merge(df, df1, on="DateTime", how="outer")
-df_fcr = pd.merge(df_fcr, df2, on="DateTime", how="outer") 
-
-fig, ax = plt.subplots(figsize=(12, 6))
-df_fcr.set_index("DateTime", inplace=True)
-ax.plot(df_fcr.index, df_fcr["FCR-D_ned_TotalPriceEUR"], label="FCR-D ned TotalPriceEUR")
-ax.plot(df_fcr.index, df_fcr["FCR-D_op_TotalPriceEUR"], label="FCR-D op TotalPriceEUR")
-ax.plot(df_fcr.index, df_fcr["FCR-N_TotalPriceEUR"], label="FCR-N TotalPriceEUR")
-ax.set_xlabel("DateTime")
-ax.set_ylabel("Total Price EUR")
-ax.set_title("FCR Prices Over Time")
-ax.legend()
-df_fcr.reset_index(inplace=True)
+# fig, ax = plt.subplots(figsize=(12, 6))
+# df_fcr.set_index("DateTime", inplace=True)
+# ax.plot(df_fcr.index, df_fcr["FCR-D_ned_TotalPriceEUR"], label="FCR-D ned TotalPriceEUR")
+# ax.plot(df_fcr.index, df_fcr["FCR-D_op_TotalPriceEUR"], label="FCR-D op TotalPriceEUR")
+# ax.plot(df_fcr.index, df_fcr["FCR-N_TotalPriceEUR"], label="FCR-N TotalPriceEUR")
+# ax.set_xlabel("DateTime")
+# ax.set_ylabel("Total Price EUR")
+# ax.set_title("FCR Prices Over Time")
+# ax.legend()
+# df_fcr.reset_index(inplace=True)
 
 
 #Wind forecast
-base_url = "https://api.energidataservice.dk/dataset/Forecasts_Hour"
-params = {
-    'offset': 0,
-    'start': '2025-01-01T00:00',
-    'end': '2026-01-01T00:00',
-    'filter': '{"PriceArea":["DK2"],"ForecastType":["Onshore Wind"]}',
-    'sort': 'HourUTC DESC'
-}
-hent_data3 = requests.get(base_url, params=params)
-data3 = hent_data3.json()
-df3 = pd.DataFrame(data3['records'], columns=["HourDK", "ForecastDayAhead"])
-df3 = df3.rename(columns={"HourDK": "DateTime", "ForecastDayAhead": "ForecastDayAhead_wind"})
-df3["DateTime"] = pd.to_datetime(df3["DateTime"])
+def hent_wind_forecast_data():
+    base_url = "https://api.energidataservice.dk/dataset/Forecasts_Hour"
+    params = {
+        'offset': 0,
+        'start': '2025-01-01T00:00',
+        'end': '2026-01-01T00:00',
+        'filter': '{"PriceArea":["DK2"],"ForecastType":["Onshore Wind"]}',
+        'sort': 'HourUTC DESC'
+    }
+    hent_data3 = requests.get(base_url, params=params)
+    data3 = hent_data3.json()
+    df3 = pd.DataFrame(data3['records'], columns=["HourDK", "ForecastDayAhead"])
+    df3 = df3.rename(columns={"HourDK": "DateTime", "ForecastDayAhead": "ForecastDayAhead_wind"})
+    df3["DateTime"] = pd.to_datetime(df3["DateTime"])
+    df3.to_excel("Wind_forecast.xlsx", index=False)
 
 #Solar forecast
-base_url = "https://api.energidataservice.dk/dataset/Forecasts_Hour"
-params = {
-    'offset': 0,
-    'start': '2025-01-01T00:00',
-    'end': '2026-01-01T00:00',
-    'filter': '{"PriceArea":["DK2"],"ForecastType":["Solar"]}',
-    'sort': 'HourUTC DESC'
-}
-hent_data4 = requests.get(base_url, params=params)
-data4 = hent_data4.json()
-df4 = pd.DataFrame(data4['records'], columns=["HourDK", "ForecastDayAhead"])
-df4 = df4.rename(columns={"HourDK": "DateTime", "ForecastDayAhead": "ForecastDayAhead_solar"})
-df4["DateTime"] = pd.to_datetime(df4["DateTime"])
+def hent_solar_forecast_data():
+    base_url = "https://api.energidataservice.dk/dataset/Forecasts_Hour"
+    params = {
+        'offset': 0,
+        'start': '2025-01-01T00:00',
+        'end': '2026-01-01T00:00',
+        'filter': '{"PriceArea":["DK2"],"ForecastType":["Solar"]}',
+        'sort': 'HourUTC DESC'
+    }
+    hent_data4 = requests.get(base_url, params=params)
+    data4 = hent_data4.json()
+    df4 = pd.DataFrame(data4['records'], columns=["HourDK", "ForecastDayAhead"])
+    df4 = df4.rename(columns={"HourDK": "DateTime", "ForecastDayAhead": "ForecastDayAhead_solar"})
+    df4["DateTime"] = pd.to_datetime(df4["DateTime"])
+    df4.to_excel("Solar_forecast.xlsx", index=False)
 
-## merge solar and wind with fcr data but avoid two columns each of forecastdayahead variables
-df_fcr = pd.merge(df_fcr, df3, on="DateTime", how="outer")
-df_fcr = pd.merge(df_fcr, df4, on="DateTime", how="outer")
+
 
 #day ahead prices
 #day_ahead before october 1
-base_url = "https://api.energidataservice.dk/dataset/Elspotprices"
-params = {
-    'offset': 0,
-    'start': '2025-01-01T00:00',
-    'end': '2025-09-30T00:00',
-    'filter': '{"PriceArea":["DK2"]}',
-    'sort': 'HourUTC DESC'}
+def hent_day_ahead_data():
+    base_url = "https://api.energidataservice.dk/dataset/Elspotprices"
+    params = {
+        'offset': 0,
+        'start': '2025-01-01T00:00',
+        'end': '2025-09-30T00:00',
+        'filter': '{"PriceArea":["DK2"]}',
+        'sort': 'HourUTC DESC'}
 
-day_ahead_response = requests.get(base_url, params=params)
-day_ahead_data = day_ahead_response.json()
-day_ahead_df_before_october = pd.DataFrame(day_ahead_data['records'], columns=["HourDK", "SpotPriceDKK"])
-day_ahead_df_before_october = day_ahead_df_before_october.rename(columns={"SpotPriceDKK": "DayAheadPriceDKK", "HourDK": "DateTime"})
-day_ahead_df_before_october["DateTime"] = pd.to_datetime(day_ahead_df_before_october["DateTime"])
-day_ahead_df_before_october = day_ahead_df_before_october.set_index("DateTime").resample('1h').mean().reset_index()
+    day_ahead_response = requests.get(base_url, params=params)
+    day_ahead_data = day_ahead_response.json()
+    day_ahead_df_before_october = pd.DataFrame(day_ahead_data['records'], columns=["HourDK", "SpotPriceDKK"])
+    day_ahead_df_before_october = day_ahead_df_before_october.rename(columns={"SpotPriceDKK": "DayAheadPriceDKK", "HourDK": "DateTime"})
+    day_ahead_df_before_october["DateTime"] = pd.to_datetime(day_ahead_df_before_october["DateTime"])
+    day_ahead_df_before_october = day_ahead_df_before_october.set_index("DateTime").resample('1h').mean().reset_index()
 
-#day_ahead after october 1
-base_url = "https://api.energidataservice.dk/dataset/DayAheadPrices"
-params = {
-    'offset': 0,
-    'start': '2025-10-01T00:00',
-    'end': '2026-01-01T00:00',
-    'filter': '{"PriceArea":["DK2"]}'
-}
-dayahead_response = requests.get(base_url, params=params)
-dayahead_data = dayahead_response.json()
-dayahead_df_after_october = pd.DataFrame(dayahead_data['records'], columns=["TimeDK", "DayAheadPriceDKK"])
-dayahead_df_after_october = dayahead_df_after_october.rename(columns={"DayAheadPriceDKK": "DayAheadPriceDKK", "TimeDK": "DateTime"})
-dayahead_df_after_october["DateTime"] = pd.to_datetime(dayahead_df_after_october["DateTime"])
-dayahead_df_after_october = dayahead_df_after_october.set_index("DateTime").resample('1h').mean().reset_index()
+    #day_ahead after october 1
+    base_url = "https://api.energidataservice.dk/dataset/DayAheadPrices"
+    params = {
+        'offset': 0,
+        'start': '2025-10-01T00:00',
+        'end': '2026-01-01T00:00',
+        'filter': '{"PriceArea":["DK2"]}'
+    }
+    dayahead_response = requests.get(base_url, params=params)
+    dayahead_data = dayahead_response.json()
+    dayahead_df_after_october = pd.DataFrame(dayahead_data['records'], columns=["TimeDK", "DayAheadPriceDKK"])
+    dayahead_df_after_october = dayahead_df_after_october.rename(columns={"DayAheadPriceDKK": "DayAheadPriceDKK", "TimeDK": "DateTime"})
+    dayahead_df_after_october["DateTime"] = pd.to_datetime(dayahead_df_after_october["DateTime"])
+    dayahead_df_after_october = dayahead_df_after_october.set_index("DateTime").resample('1h').mean().reset_index()
+
+    #append day_ahead before october 1 and day_ahead after october 1
+    dayahead_df = pd.concat([day_ahead_df_before_october, dayahead_df_after_october], ignore_index=True)
+
+    dayahead_df.to_excel("DayAheadPrices.xlsx", index=False)
 
 
-#append day_ahead before october 1 and day_ahead after october 1
-dayahead_df = pd.concat([day_ahead_df_before_october, dayahead_df_after_october], ignore_index=True)
+df1 = pd.read_excel("FCR-D_ned.xlsx")
+df2 = pd.read_excel("FCR-D_op.xlsx")
+df3 = pd.read_excel("FCR-N.xlsx")
+df4 = pd.read_excel("Wind_forecast.xlsx")
+df5 = pd.read_excel("Solar_forecast.xlsx")
+df6 = pd.read_excel("DayAheadPrices.xlsx")
+df_fcr = pd.merge(df1, df2, on="DateTime", how="outer")
+df_fcr = pd.merge(df_fcr, df3, on="DateTime", how="outer")
+df_fcr = pd.merge(df_fcr, df4, on="DateTime", how="outer")
+df_fcr = pd.merge(df_fcr, df5, on="DateTime", how="outer")
+fcr_renew_dayahead = pd.merge(df_fcr, df6, on="DateTime", how="outer")
 
 
-#merge day_ahead with fcr data
-fcr_renew_dayahead = pd.merge(df_fcr, dayahead_df, on="DateTime", how="outer")
+
 
 korrelation = fcr_renew_dayahead.drop(columns=["DateTime"]).corr()
 fig, ax = plt.subplots(figsize=(10, 8))
@@ -426,9 +444,12 @@ def investerings_case():
    # for all prices above 100, set to 100.
    for variabel in ["FCR-D_ned_TotalPriceEUR", "FCR-D_op_TotalPriceEUR", "FCR-N_TotalPriceEUR"]:
         daily_data.loc[daily_data[variabel] > 80, variabel] = 80
-   daily_data = fcr_renew_dayahead.set_index("DateTime").resample("D")[["FCR-D_ned_TotalPriceEUR", "FCR-D_op_TotalPriceEUR", "FCR-N_TotalPriceEUR"]].mean().reset_index()
+   daily_data = fcr_renew_dayahead.set_index("DateTime").resample("4h")[["FCR-D_ned_TotalPriceEUR", "FCR-D_op_TotalPriceEUR", "FCR-N_TotalPriceEUR"]].mean().reset_index()
    daily_data["High_Price"] = daily_data[["FCR-D_ned_TotalPriceEUR", "FCR-D_op_TotalPriceEUR", "FCR-N_TotalPriceEUR"]].max(axis=1)
    daily_data["High_Price_pricetype"] = daily_data[["FCR-D_ned_TotalPriceEUR", "FCR-D_op_TotalPriceEUR", "FCR-N_TotalPriceEUR"]].idxmax(axis=1)
    average_price_for_all_high_prices = round((daily_data["High_Price"].mean())*7.45,2)
+   print(daily_data.head())
    return {"average_price_for_all_high_prices": average_price_for_all_high_prices,
-           "aarlig_indtjening": average_price_for_all_high_prices*24*365}
+           "aarlig_indtjening": average_price_for_all_high_prices*24*365,
+           "antal_4h_periode_på_respektive_markeder": daily_data["High_Price_pricetype"].value_counts().to_dict()}
+
