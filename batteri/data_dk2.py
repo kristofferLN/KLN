@@ -440,11 +440,11 @@ def FCR_AI_AGENT():
 
 
 def investerings_case():
-   daily_data = fcr_renew_dayahead
+   daily_data = fcr_renew_dayahead.copy()
    # for all prices above 100, set to 100.
    for variabel in ["FCR-D_ned_TotalPriceEUR", "FCR-D_op_TotalPriceEUR", "FCR-N_TotalPriceEUR"]:
         daily_data.loc[daily_data[variabel] > 80, variabel] = 80
-   daily_data = fcr_renew_dayahead.set_index("DateTime").resample("4h")[["FCR-D_ned_TotalPriceEUR", "FCR-D_op_TotalPriceEUR", "FCR-N_TotalPriceEUR"]].mean().reset_index()
+   daily_data = daily_data.set_index("DateTime").resample("4h")[["FCR-D_ned_TotalPriceEUR", "FCR-D_op_TotalPriceEUR", "FCR-N_TotalPriceEUR"]].mean().reset_index()
    daily_data["High_Price"] = daily_data[["FCR-D_ned_TotalPriceEUR", "FCR-D_op_TotalPriceEUR", "FCR-N_TotalPriceEUR"]].max(axis=1)
    daily_data["High_Price_pricetype"] = daily_data[["FCR-D_ned_TotalPriceEUR", "FCR-D_op_TotalPriceEUR", "FCR-N_TotalPriceEUR"]].idxmax(axis=1)
    average_price_for_all_high_prices = round((daily_data["High_Price"].mean())*7.45,2)
